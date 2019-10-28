@@ -1,0 +1,77 @@
+trigger:
+  branches:
+    include:
+      - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  # Maven BS. Figure it out
+  # Download secure file from Pipelines/Library
+  # - task: DownloadSecureFile@1
+  #   name: 'maven_settings'
+  #   displayName: 'Download Maven settings.xml file'
+  #   inputs:
+  #     secureFile: 'settings.xml'
+
+  # # Add the Maven configuration file to the correct place
+  # - script: |
+  #     mkdir "${HOME}/.m2"
+  #     cp "$(maven_settings.secureFilePath)" "${HOME}/.m2/settings.xml"
+  #   displayName: 'Put the correct settings.xml for Maven'
+
+  # do we need some sort of replace just to be sure??
+
+  # Perform 'mvn clean verify'
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'cms/hub_cms/pom.xml'
+      mavenOptions: '-Xmx3072m'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.8'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: false
+      goals: 'clean verify'
+
+  # - task: Maven@3
+  #   inputs:
+  #     mavenPomFile: 'cms/hub_cms/pom.xml'
+  #     mavenOptions: '-Xmx3072m'
+  #     javaHomeOption: 'JDKVersion'
+  #     jdkVersionOption: '1.8'
+  #     jdkArchitectureOption: 'x64'
+  #     publishJUnitResults: false
+  #     goals: 'deploy'
+
+
+ # Not sure what this is. Lets leave it out for now
+  # Perform 'mvn -Pdist' in the same working directory as previous one
+  # - script: |
+  #     echo Performing 'mvn -Pdist'
+  #     cd cms/hub_cms
+  #     mvn -Pdist
+  #   displayName: 'Performing mvn -Pdist'
+
+
+  # need to find proper paths
+
+  # Copy files from build directory to artifact directory
+  # - task: CopyFiles@2
+  #   inputs:
+  #     sourceFolder: '$(Build.SourcesDirectory)/target/'
+  #     targetFolder: '$(Build.ArtifactStagingDirectory)'
+  #     contents: '**'
+
+  # # Copy configuration files from repo to artifact directory
+  # - task: CopyFiles@2
+  #   inputs:
+  #     sourceFolder: '$(Build.SourcesDirectory)/cms/hub_cms/site/components/src/main/resources/'
+  #     targetFolder: '$(Build.ArtifactStagingDirectory)'
+  #     contents: '*'
+
+  # Publish build artifact
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'build-artifact'

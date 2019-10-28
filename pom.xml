@@ -14,14 +14,16 @@
 	</properties>
 
 	<distributionManagement>
-		<repository>
-			<id>authxlab-nexus</id>
-			<url>http://nexus.authxlab.com/repository/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>authxlab-nexus</id>
-			<url>http://nexus.authxlab.com/repository/snapshots/</url>
-		</snapshotRepository>
+    <repository>
+      <id>p66-default-visualstudio-com-p66-default-utilities</id>
+      <url>https://p66-default.pkgs.visualstudio.com/_packaging/Utilities%40Local/maven/v1</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
 	</distributionManagement>
 
 	<repositories>
@@ -40,6 +42,16 @@
 				<checksumPolicy>fail</checksumPolicy>
 			</releases>
 		</repository>
+    <repository>
+      <id>p66-default-visualstudio-com-p66-default-utilities</id>
+      <url>https://p66-default.pkgs.visualstudio.com/_packaging/Utilities%40Local/maven/v1</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
 	</repositories>
 
 
