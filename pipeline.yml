@@ -26,7 +26,7 @@ steps:
   # Perform 'mvn clean verify'
   - task: Maven@3
     inputs:
-      mavenPomFile: 'cms/hub_cms/pom.xml'
+      mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.8'
